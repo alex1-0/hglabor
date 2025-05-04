@@ -292,6 +292,27 @@
             color: var(--accent);
         }
         
+        .discord-link {
+            display: inline-block;
+            background: #5865F2;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .discord-link:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        }
+        
+        .discord-link i {
+            margin-right: 8px;
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .sidebar {
@@ -343,9 +364,9 @@
                 Hauptseiten
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#" class="active">Startseite</a></li>
-                <li class="menu-item"><a href="#">Über das Projekt</a></li>
-                <li class="menu-item"><a href="#">Neuigkeiten</a></li>
+                <li class="menu-item"><a href="#start" class="active">Startseite</a></li>
+                <li class="menu-item"><a href="#ueber">Über das Projekt</a></li>
+                <li class="menu-item"><a href="#news">Neuigkeiten</a></li>
             </ul>
         </div>
         
@@ -355,9 +376,9 @@
                 NoRisk
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#">Über NoRisk</a></li>
-                <li class="menu-item"><a href="#">YouTube-Kanal</a></li>
-                <li class="menu-item"><a href="#">Projektleitung</a></li>
+                <li class="menu-item"><a href="#norisk">Über NoRisk</a></li>
+                <li class="menu-item"><a href="#youtube">YouTube-Kanal</a></li>
+                <li class="menu-item"><a href="#projektleitung">Projektleitung</a></li>
             </ul>
         </div>
         
@@ -367,10 +388,10 @@
                 NoRisk Client
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#">Funktionen</a></li>
-                <li class="menu-item"><a href="#">Entwicklung</a></li>
-                <li class="menu-item"><a href="#">Download</a></li>
-                <li class="menu-item"><a href="#">Dokumentation</a></li>
+                <li class="menu-item"><a href="#client-funktionen">Funktionen</a></li>
+                <li class="menu-item"><a href="#client-entwicklung">Entwicklung</a></li>
+                <li class="menu-item"><a href="#client-download">Download</a></li>
+                <li class="menu-item"><a href="#client-doku">Dokumentation</a></li>
             </ul>
         </div>
         
@@ -380,10 +401,10 @@
                 Forschung
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#">Exploit-Tests</a></li>
-                <li class="menu-item"><a href="#">Reverse Engineering</a></li>
-                <li class="menu-item"><a href="#">Netzwerk-Tech</a></li>
-                <li class="menu-item"><a href="#">Protokollanalyse</a></li>
+                <li class="menu-item"><a href="#exploit-tests">Exploit-Tests</a></li>
+                <li class="menu-item"><a href="#reverse-eng">Reverse Engineering</a></li>
+                <li class="menu-item"><a href="#netzwerk-tech">Netzwerk-Tech</a></li>
+                <li class="menu-item"><a href="#protokollanalyse">Protokollanalyse</a></li>
             </ul>
         </div>
         
@@ -393,10 +414,10 @@
                 Tools & Projekte
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#">Custom Tools</a></li>
-                <li class="menu-item"><a href="#">Server-Plugins</a></li>
-                <li class="menu-item"><a href="#">Client-Mods</a></li>
-                <li class="menu-item"><a href="#">GitHub</a></li>
+                <li class="menu-item"><a href="#custom-tools">Custom Tools</a></li>
+                <li class="menu-item"><a href="#server-plugins">Server-Plugins</a></li>
+                <li class="menu-item"><a href="#client-mods">Client-Mods</a></li>
+                <li class="menu-item"><a href="#github">GitHub</a></li>
             </ul>
         </div>
         
@@ -406,22 +427,23 @@
                 Community
             </div>
             <ul class="menu-items">
-                <li class="menu-item"><a href="#">Discord</a></li>
-                <li class="menu-item"><a href="#">Mitmachen</a></li>
-                <li class="menu-item"><a href="#">Richtlinien</a></li>
+                <li class="menu-item"><a href="#discord">Discord</a></li>
+                <li class="menu-item"><a href="#mitmachen">Mitmachen</a></li>
+                <li class="menu-item"><a href="#richtlinien">Richtlinien</a></li>
             </ul>
         </div>
     </div>
     
     <div class="main-content">
-        <div class="page-header">
-            <div class="breadcrumb">
-                <a href="#">HG Labor Wiki</a> / <span>Startseite</span>
+        <!-- Startseite -->
+        <div id="start" class="page-content" style="display: block;">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="#start">HG Labor Wiki</a> / <span>Startseite</span>
+                </div>
+                <h1 class="page-title">HG Labor Wiki</h1>
             </div>
-            <h1 class="page-title">HG Labor Wiki</h1>
-        </div>
-        
-        <div class="page-content">
+            
             <div class="section">
                 <h2 class="section-title"><i class="fas fa-flask"></i> Willkommen im HG Labor Wiki</h2>
                 <p>Das HG Labor ist eine technisch fokussierte Minecraft- und IT-Community, die sich auf tiefe Systemanalyse, Client-/Server-Entwicklung, Exploit-Forschung und einzigartige Tools spezialisiert hat.</p>
@@ -429,150 +451,342 @@
                 <div class="highlight-box">
                     <p>Das Ganze wurde von NoRisk ins Leben gerufen – einem YouTuber mit starkem Fokus auf Minecraft-Tech, Reverse Engineering und Security.</p>
                 </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="card-title">Über NoRisk</h3>
+                        <p>Erfahren Sie mehr über den Gründer und Kopf hinter HG Labor.</p>
+                        <a href="#norisk" class="discord-link"><i class="fas fa-arrow-right"></i>Mehr erfahren</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3 class="card-title">NoRisk Client</h3>
+                        <p>Der hochmodifizierte Minecraft-Client für technische Analysen.</p>
+                        <a href="#client-funktionen" class="discord-link"><i class="fas fa-arrow-right"></i>Zu den Funktionen</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3 class="card-title">Community</h3>
+                        <p>Treten Sie unserer aktiven Tech-Community bei.</p>
+                        <a href="#discord" class="discord-link"><i class="fab fa-discord"></i>Discord beitreten</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Über NoRisk -->
+        <div id="norisk" class="page-content" style="display: none;">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="#start">HG Labor Wiki</a> / <span>Über NoRisk</span>
+                </div>
+                <h1 class="page-title">NoRisk – Gründer & Leader</h1>
             </div>
             
             <div class="section">
-                <h2 class="section-title"><i class="fas fa-user-tie"></i> NoRisk – Gründer & Leader</h2>
-                <p>NoRisk ist der Kopf hinter HG Labor. Er ist nicht nur YouTuber, sondern auch Entwickler, Forscher und Projektleiter. Seine Videos behandeln technische Themen wie:</p>
+                <h2 class="section-title"><i class="fas fa-user-tie"></i> Der Kopf hinter HG Labor</h2>
+                <p>NoRisk ist ein deutscher YouTuber, Entwickler und Sicherheitsforscher mit Spezialisierung auf Minecraft-Interna. Anders als viele Content Creator konzentriert er sich nicht auf Unterhaltung, sondern auf tiefgehende technische Analysen.</p>
                 
+                <div class="highlight-box">
+                    <p>"Mein Ziel ist es, das technische Verständnis von Minecraft zu fördern - nicht nur für mich, sondern für die gesamte Community." - NoRisk</p>
+                </div>
+                
+                <h3 style="margin: 20px 0 10px; color: var(--accent); font-size: 20px;"><i class="fas fa-graduation-cap" style="margin-right: 10px;"></i> Hintergrund</h3>
+                <p>NoRisk begann seine Reise in der Minecraft-Technikszene bereits 2013 mit ersten Modding-Versuchen. Seine Expertise erstreckt sich über:</p>
                 <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li>Sicherheitslücken in Minecraft</li>
-                    <li>Custom Clients und Server-Architekturen</li>
-                    <li>Exploit-Analysen und Protokollverständnis</li>
-                    <li>Eigenentwicklungen wie der NoRisk Client</li>
+                    <li>Java-Bytecode-Analyse und -Manipulation</li>
+                    <li>Netzwerkprotokoll-Reverse-Engineering</li>
+                    <li>Schwachstellenanalyse in Spielclients</li>
+                    <li>Performance-Optimierungen auf JVM-Ebene</li>
                 </ul>
-                
-                <p>Er vereint Content Creation mit echter IT-Expertise – kein typischer YouTuber, sondern eher ein Dev mit Kamera.</p>
             </div>
             
             <div class="section">
-                <h2 class="section-title"><i class="fas fa-laptop-code"></i> Der NoRisk Client</h2>
-                <p>Ein selbst entwickelter, hochgradig modifizierter Minecraft-Client. Er wird verwendet für:</p>
+                <h2 class="section-title"><i class="fas fa-video"></i> YouTube-Inhalte</h2>
+                <p>Der YouTube-Kanal von NoRisk behandelt technische Themen, die in der Minecraft-Community selten zu finden sind:</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-bug"></i></div>
+                        <h3 class="card-title">Sicherheitslücken</h3>
+                        <p>Analyse und Demonstration von kritischen Schwachstellen in Minecraft</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3 class="card-title">Client-Entwicklung</h3>
+                        <p>Tiefe Einblicke in die Entwicklung des NoRisk-Clients</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-server"></i></div>
+                        <h3 class="card-title">Server-Architekturen</h3>
+                        <p>Technische Analysen von Server-Implementierungen</p>
+                    </div>
+                </div>
+                
+                <a href="https://www.youtube.com/channel/UCk9H9O0W9qz5bqQ2vQx1J0w" class="discord-link" target="_blank"><i class="fab fa-youtube"></i> YouTube-Kanal besuchen</a>
+            </div>
+        </div>
+        
+        <!-- NoRisk Client Funktionen -->
+        <div id="client-funktionen" class="page-content" style="display: none;">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="#start">HG Labor Wiki</a> / <a href="#client-funktionen">NoRisk Client</a> / <span>Funktionen</span>
+                </div>
+                <h1 class="page-title">NoRisk Client - Funktionen</h1>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-laptop-code"></i> Der technische Minecraft-Client</h2>
+                <p>Der NoRisk Client ist kein typischer Utility-Client, sondern ein hochspezialisiertes Werkzeug für technische Analysen und Experimente. Er wird kontinuierlich weiterentwickelt und enthält einzigartige Funktionen, die es in keinem anderen Client gibt.</p>
+                
+                <div class="highlight-box">
+                    <p>Wichtig: Der NoRisk Client ist kein Cheat-Client! Er dient ausschließlich Forschungs- und Analysezwecken.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-cogs"></i> Kernfunktionen</h2>
                 
                 <div class="grid">
                     <div class="card">
                         <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3 class="card-title">Sicherheitsanalysen</h3>
-                        <p>Umfassende Tests von Minecraft-Sicherheitsmechanismen und Schwachstellen.</p>
+                        <h3 class="card-title">Sicherheitsanalyse</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>Exploit-Detection</li>
+                            <li>Packet-Manipulation</li>
+                            <li>Code-Injection-Tests</li>
+                        </ul>
                     </div>
                     
                     <div class="card">
                         <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        <h3 class="card-title">Performance-Optimierungen</h3>
-                        <p>Erweiterte Debugging- und Profiling-Tools für maximale Performance.</p>
+                        <h3 class="card-title">Performance-Tools</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>JVM-Profiler</li>
+                            <li>Render-Statistiken</li>
+                            <li>Netzwerk-Latenz-Analyse</li>
+                        </ul>
                     </div>
                     
                     <div class="card">
-                        <div class="card-icon"><i class="fas fa-vial"></i></div>
-                        <h3 class="card-title">Funktionstests</h3>
-                        <p>Testplattform für HG Labor-Projekte und Experimente.</p>
-                    </div>
-                </div>
-                
-                <p>Kein reiner Utility-Client – eher ein Technologie-Demoboard mit Funktionstiefe.</p>
-            </div>
-            
-            <div class="section">
-                <h2 class="section-title"><i class="fas fa-bullseye"></i> Ziele des HG Labors</h2>
-                
-                <div class="grid">
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-brain"></i></div>
-                        <h3 class="card-title">Tiefes Verständnis</h3>
-                        <p>Minecraft tief verstehen & weiterdenken</p>
+                        <div class="card-icon"><i class="fas fa-search"></i></div>
+                        <h3 class="card-title">Debugging</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>Packet-Logger</li>
+                            <li>Entity-Inspektor</li>
+                            <li>Chunk-Debugger</li>
+                        </ul>
                     </div>
                     
                     <div class="card">
-                        <div class="card-icon"><i class="fas fa-gamepad"></i></div>
-                        <h3 class="card-title">Technik & Gameplay</h3>
-                        <p>Neue Wege finden, wie Technik & Gameplay verschmelzen</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-lock"></i></div>
-                        <h3 class="card-title">Sicherheit</h3>
-                        <p>Sicherheitslücken zeigen – nicht ausnutzen</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-tools"></i></div>
-                        <h3 class="card-title">Tools</h3>
-                        <p>Tools für Devs & Admins bereitstellen</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-book"></i></div>
-                        <h3 class="card-title">Wissen</h3>
-                        <p>Transparenz und Wissen fördern</p>
+                        <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3 class="card-title">Netzwerk-Tools</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>Traffic-Analyzer</li>
+                            <li>Protokoll-Dekoder</li>
+                            <li>Bandbreiten-Simulator</li>
+                        </ul>
                     </div>
                 </div>
             </div>
             
             <div class="section">
-                <h2 class="section-title"><i class="fas fa-project-diagram"></i> Projekte & Themen im HG Labor</h2>
+                <h2 class="section-title"><i class="fas fa-flask"></i> Forschungsfunktionen</h2>
+                <p>Diese einzigartigen Features machen den NoRisk Client zum idealen Werkzeug für technische Forschung:</p>
                 
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                     <thead>
                         <tr style="background: rgba(52, 152, 219, 0.2);">
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Bereich</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Inhalt</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Funktion</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Beschreibung</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <td style="padding: 12px;"><i class="fas fa-lock" style="color: var(--accent); margin-right: 5px;"></i> Exploit-Tests</td>
-                            <td style="padding: 12px;">Client/Server-Schwächen erkennen & dokumentieren</td>
+                            <td style="padding: 12px;">Packet Forging</td>
+                            <td style="padding: 12px;">Erstellen und senden von custom Netzwerkpaketen</td>
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <td style="padding: 12px;"><i class="fas fa-search" style="color: var(--accent); margin-right: 5px;"></i> Reverse Eng.</td>
-                            <td style="padding: 12px;">Protokolle, Obfuscation & Minecraft-Internals durchleuchten</td>
+                            <td style="padding: 12px;">Runtime Code Editor</td>
+                            <td style="padding: 12px;">Dynamische Code-Modifikation während der Laufzeit</td>
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <td style="padding: 12px;"><i class="fas fa-tools" style="color: var(--accent); margin-right: 5px;"></i> Custom Tools</td>
-                            <td style="padding: 12px;">Eigene Mods, Clients, Server-Plugins</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <td style="padding: 12px;"><i class="fas fa-network-wired" style="color: var(--accent); margin-right: 5px;"></i> Netzwerk-Tech</td>
-                            <td style="padding: 12px;">Ping, Delay, Bandbreiten-Simulation, DoS-Schutz</td>
+                            <td style="padding: 12px;">Protocol Mapper</td>
+                            <td style="padding: 12px;">Automatische Protokoll-Dokumentation</td>
                         </tr>
                         <tr>
-                            <td style="padding: 12px;"><i class="fas fa-graduation-cap" style="color: var(--accent); margin-right: 5px;"></i> Education</td>
-                            <td style="padding: 12px;">Verständlich erklären, was andere nur patchen</td>
+                            <td style="padding: 12px;">Exploit Simulator</td>
+                            <td style="padding: 12px;">Testumgebung für Sicherheitslücken</td>
                         </tr>
                     </tbody>
                 </table>
+                
+                <a href="https://discord.gg/SuQ2s6CT" class="discord-link" target="_blank"><i class="fab fa-discord"></i> NoRisk Client Discord</a>
+            </div>
+        </div>
+        
+        <!-- Exploit-Tests -->
+        <div id="exploit-tests" class="page-content" style="display: none;">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="#start">HG Labor Wiki</a> / <a href="#exploit-tests">Forschung</a> / <span>Exploit-Tests</span>
+                </div>
+                <h1 class="page-title">Exploit-Tests</h1>
             </div>
             
             <div class="section">
-                <h2 class="section-title"><i class="fas fa-globe"></i> Community & Wirkung</h2>
+                <h2 class="section-title"><i class="fas fa-bug"></i> Sicherheitsforschung in Minecraft</h2>
+                <p>Das HG Labor untersucht systematisch Schwachstellen in Minecraft-Clients und -Servern. Dabei geht es nicht um die Ausnutzung, sondern um das Verständnis und die Dokumentation der Probleme.</p>
+                
+                <div class="highlight-box">
+                    <p>Ethikrichtlinie: Alle gefundenen Schwachstellen werden zunächst den betroffenen Projekten gemeldet, bevor sie öffentlich dokumentiert werden.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-shield-alt"></i> Forschungsbereiche</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3 class="card-title">Client-Exploits</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>RCE-Schwachstellen</li>
+                            <li>Deserialisierungsprobleme</li>
+                            <li>Speicherkorruption</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-server"></i></div>
+                        <h3 class="card-title">Server-Exploits</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>DoS-Möglichkeiten</li>
+                            <li>Protokollschwachstellen</li>
+                            <li>Plugin-Sicherheit</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3 class="card-title">Netzwerk-Exploits</h3>
+                        <ul style="padding-left: 20px;">
+                            <li>MITM-Angriffe</li>
+                            <li>Protokollmanipulation</li>
+                            <li>Session-Hijacking</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-book"></i> Dokumentierte Exploits</h2>
+                <p>Eine Auswahl der wichtigsten von HG Labor dokumentierten Sicherheitsprobleme:</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: rgba(52, 152, 219, 0.2);">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Name</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Betrifft</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;">PacketStorm</td>
+                            <td style="padding: 12px;">Spigot 1.12-1.16</td>
+                            <td style="padding: 12px;"><span style="color: #2ecc71;">Gepatched</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;">ChunkCrash</td>
+                            <td style="padding: 12px;">Vanilla 1.8-1.18</td>
+                            <td style="padding: 12px;"><span style="color: #e74c3c;">Ungepatched</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;">SkinHijack</td>
+                            <td style="padding: 12px;">Alle Forge-Clients</td>
+                            <td style="padding: 12px;"><span style="color: #2ecc71;">Gepatched</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px;">ResourcePackRCE</td>
+                            <td style="padding: 12px;">Vanilla 1.12-1.19</td>
+                            <td style="padding: 12px;"><span style="color: #f39c12;">Teilweise gepatcht</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p>Für detaillierte technische Informationen zu diesen Schwachstellen wenden Sie sich bitte an das Forschungsteam.</p>
+            </div>
+        </div>
+        
+        <!-- Discord Community -->
+        <div id="discord" class="page-content" style="display: none;">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="#start">HG Labor Wiki</a> / <a href="#discord">Community</a> / <span>Discord</span>
+                </div>
+                <h1 class="page-title">Discord Community</h1>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fab fa-discord"></i> Unsere Discord-Server</h2>
+                <p>Die HG Labor Community ist auf mehreren spezialisierten Discord-Servern aktiv. Jeder Server hat seinen eigenen Fokus und seine eigene Community.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-server"></i> Verfügbare Server</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-flask"></i></div>
+                        <h3 class="card-title">HG Labor</h3>
+                        <p>Der Hauptserver für alle Forschungs- und Entwicklungsprojekte</p>
+                        <a href="https://discord.gg/qkDfZ5ZD" class="discord-link" target="_blank"><i class="fab fa-discord"></i> Beitreten</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3 class="card-title">NoRisk Client</h3>
+                        <p>Support und Diskussion rund um den NoRisk Client</p>
+                        <a href="https://discord.gg/SuQ2s6CT" class="discord-link" target="_blank"><i class="fab fa-discord"></i> Beitreten</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3 class="card-title">NoRisk Coding</h3>
+                        <p>Technische Diskussionen und Programmierhilfen</p>
+                        <a href="https://discord.gg/XqY8zGM5" class="discord-link" target="_blank"><i class="fab fa-discord"></i> Beitreten</a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                        <h3 class="card-title">NoRisk Hauptserver</h3>
+                        <p>Allgemeiner Community-Server rund um NoRisk</p>
+                        <a href="https://discord.gg/UMRbUsJW" class="discord-link" target="_blank"><i class="fab fa-discord"></i> Beitreten</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-users"></i> Community-Richtlinien</h2>
+                <p>Um eine produktive und respektvolle Atmosphäre zu gewährleisten, gelten auf allen Servern folgende Regeln:</p>
+                
                 <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li>Discord-Server für Devs, Nerds & Tester</li>
-                    <li>GitHub & andere Plattformen folgen dem Open-Knowledge-Ansatz</li>
-                    <li>Technische Challenges für Fortgeschrittene</li>
-                    <li>Kollabs mit anderen Tech-Creators möglich</li>
+                    <li>Keine Diskussion über illegale Aktivitäten</li>
+                    <li>Keine Verbreitung von tatsächlichen Exploits</li>
+                    <li>Respektvoller Umgang mit allen Mitgliedern</li>
+                    <li>Technische Fragen gehören in die entsprechenden Channels</li>
+                    <li>Keine Werbung ohne Erlaubnis</li>
                 </ul>
                 
-                <h3 style="margin: 20px 0 10px; color: var(--accent); font-size: 20px;"><i class="fas fa-eye" style="margin-right: 10px;"></i> Vision</h3>
-                <p>Ein Raum für echte Minecraft-Innovation, ohne Clickbait, ohne Script-Kram. NoRisk & HG Labor stehen für:</p>
-                
-                <div class="grid" style="margin-top: 20px;">
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
-                        <h3 class="card-title">Tiefgang</h3>
-                        <p>Tiefgang statt Oberfläche</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-wrench"></i></div>
-                        <h3 class="card-title">Pragmatismus</h3>
-                        <p>Tools statt Talk</p>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
-                        <h3 class="card-title">Verständnis</h3>
-                        <p>Verständnis statt nur Verwendung</p>
-                    </div>
+                <div class="highlight-box">
+                    <p>Hinweis: Die HG Labor-Server sind keine Hacking- oder Cheating-Communities. Wir befassen uns ausschließlich mit legitimer Sicherheitsforschung.</p>
                 </div>
             </div>
         </div>
@@ -585,34 +799,34 @@
             document.querySelector('.main-content').classList.toggle('expanded');
         });
         
-        // Smooth page transitions
+        // Simple page switching logic
         document.querySelectorAll('.menu-item a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
                 
-                // Remove active class from all links
+                // Hide all pages
+                document.querySelectorAll('.page-content').forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // Show target page
+                document.getElementById(targetId).style.display = 'block';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active link
                 document.querySelectorAll('.menu-item a').forEach(item => {
                     item.classList.remove('active');
                 });
-                
-                // Add active class to clicked link
                 this.classList.add('active');
                 
-                // Change page title
-                const pageTitle = document.querySelector('.page-title');
-                const breadcrumb = document.querySelector('.breadcrumb span');
-                
-                // Animate out
-                document.querySelector('.page-content').style.animation = 'fadeOut 0.4s ease forwards';
-                
-                setTimeout(() => {
-                    // Update content (in a real app, you'd load new content here)
-                    pageTitle.textContent = this.textContent;
-                    breadcrumb.textContent = this.textContent;
-                    
-                    // Animate in
-                    document.querySelector('.page-content').style.animation = 'fadeInUp 0.6s ease forwards';
-                }, 400);
+                // Close sidebar on mobile
+                if (window.innerWidth < 992) {
+                    document.querySelector('.sidebar').classList.remove('visible');
+                    document.querySelector('.main-content').classList.remove('expanded');
+                }
             });
         });
         
