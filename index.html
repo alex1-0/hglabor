@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HG Labor Wiki | Minecraft Tech & Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --text: #ecf0f1;
+            --highlight: #e74c3c;
+            --bg: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo i {
+            font-size: 28px;
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--accent), #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: var(--accent);
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+        }
+        
+        .category {
+            margin-bottom: 25px;
+        }
+        
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 10px;
+        }
+        
+        .menu-items {
+            list-style: none;
+        }
+        
+        .menu-item {
+            margin-bottom: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .menu-item a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .menu-item a.active {
+            background: var(--accent);
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .menu-item a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item a:hover::before {
+            transform: scaleY(1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            transition: margin-left 0.4s ease;
+        }
+        
+        .main-content.expanded {
+            margin-left: 0;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--accent), #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), #9b59b6);
+            border-radius: 3px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .page-content {
+            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        .highlight-box {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .card-icon {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-flask"></i>
+            <h1>HG Labor Wiki</h1>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-home"></i>
+                Hauptseiten
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#" class="active">Startseite</a></li>
+                <li class="menu-item"><a href="#">Über das Projekt</a></li>
+                <li class="menu-item"><a href="#">Neuigkeiten</a></li>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-user"></i>
+                NoRisk
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#">Über NoRisk</a></li>
+                <li class="menu-item"><a href="#">YouTube-Kanal</a></li>
+                <li class="menu-item"><a href="#">Projektleitung</a></li>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-laptop-code"></i>
+                NoRisk Client
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#">Funktionen</a></li>
+                <li class="menu-item"><a href="#">Entwicklung</a></li>
+                <li class="menu-item"><a href="#">Download</a></li>
+                <li class="menu-item"><a href="#">Dokumentation</a></li>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-microscope"></i>
+                Forschung
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#">Exploit-Tests</a></li>
+                <li class="menu-item"><a href="#">Reverse Engineering</a></li>
+                <li class="menu-item"><a href="#">Netzwerk-Tech</a></li>
+                <li class="menu-item"><a href="#">Protokollanalyse</a></li>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-tools"></i>
+                Tools & Projekte
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#">Custom Tools</a></li>
+                <li class="menu-item"><a href="#">Server-Plugins</a></li>
+                <li class="menu-item"><a href="#">Client-Mods</a></li>
+                <li class="menu-item"><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-users"></i>
+                Community
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item"><a href="#">Discord</a></li>
+                <li class="menu-item"><a href="#">Mitmachen</a></li>
+                <li class="menu-item"><a href="#">Richtlinien</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="page-header">
+            <div class="breadcrumb">
+                <a href="#">HG Labor Wiki</a> / <span>Startseite</span>
+            </div>
+            <h1 class="page-title">HG Labor Wiki</h1>
+        </div>
+        
+        <div class="page-content">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-flask"></i> Willkommen im HG Labor Wiki</h2>
+                <p>Das HG Labor ist eine technisch fokussierte Minecraft- und IT-Community, die sich auf tiefe Systemanalyse, Client-/Server-Entwicklung, Exploit-Forschung und einzigartige Tools spezialisiert hat.</p>
+                
+                <div class="highlight-box">
+                    <p>Das Ganze wurde von NoRisk ins Leben gerufen – einem YouTuber mit starkem Fokus auf Minecraft-Tech, Reverse Engineering und Security.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-user-tie"></i> NoRisk – Gründer & Leader</h2>
+                <p>NoRisk ist der Kopf hinter HG Labor. Er ist nicht nur YouTuber, sondern auch Entwickler, Forscher und Projektleiter. Seine Videos behandeln technische Themen wie:</p>
+                
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Sicherheitslücken in Minecraft</li>
+                    <li>Custom Clients und Server-Architekturen</li>
+                    <li>Exploit-Analysen und Protokollverständnis</li>
+                    <li>Eigenentwicklungen wie der NoRisk Client</li>
+                </ul>
+                
+                <p>Er vereint Content Creation mit echter IT-Expertise – kein typischer YouTuber, sondern eher ein Dev mit Kamera.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-laptop-code"></i> Der NoRisk Client</h2>
+                <p>Ein selbst entwickelter, hochgradig modifizierter Minecraft-Client. Er wird verwendet für:</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="card-title">Sicherheitsanalysen</h3>
+                        <p>Umfassende Tests von Minecraft-Sicherheitsmechanismen und Schwachstellen.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <h3 class="card-title">Performance-Optimierungen</h3>
+                        <p>Erweiterte Debugging- und Profiling-Tools für maximale Performance.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-vial"></i></div>
+                        <h3 class="card-title">Funktionstests</h3>
+                        <p>Testplattform für HG Labor-Projekte und Experimente.</p>
+                    </div>
+                </div>
+                
+                <p>Kein reiner Utility-Client – eher ein Technologie-Demoboard mit Funktionstiefe.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-bullseye"></i> Ziele des HG Labors</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="card-title">Tiefes Verständnis</h3>
+                        <p>Minecraft tief verstehen & weiterdenken</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                        <h3 class="card-title">Technik & Gameplay</h3>
+                        <p>Neue Wege finden, wie Technik & Gameplay verschmelzen</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-lock"></i></div>
+                        <h3 class="card-title">Sicherheit</h3>
+                        <p>Sicherheitslücken zeigen – nicht ausnutzen</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-tools"></i></div>
+                        <h3 class="card-title">Tools</h3>
+                        <p>Tools für Devs & Admins bereitstellen</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-book"></i></div>
+                        <h3 class="card-title">Wissen</h3>
+                        <p>Transparenz und Wissen fördern</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-project-diagram"></i> Projekte & Themen im HG Labor</h2>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: rgba(52, 152, 219, 0.2);">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Bereich</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--accent);">Inhalt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;"><i class="fas fa-lock" style="color: var(--accent); margin-right: 5px;"></i> Exploit-Tests</td>
+                            <td style="padding: 12px;">Client/Server-Schwächen erkennen & dokumentieren</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;"><i class="fas fa-search" style="color: var(--accent); margin-right: 5px;"></i> Reverse Eng.</td>
+                            <td style="padding: 12px;">Protokolle, Obfuscation & Minecraft-Internals durchleuchten</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;"><i class="fas fa-tools" style="color: var(--accent); margin-right: 5px;"></i> Custom Tools</td>
+                            <td style="padding: 12px;">Eigene Mods, Clients, Server-Plugins</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 12px;"><i class="fas fa-network-wired" style="color: var(--accent); margin-right: 5px;"></i> Netzwerk-Tech</td>
+                            <td style="padding: 12px;">Ping, Delay, Bandbreiten-Simulation, DoS-Schutz</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px;"><i class="fas fa-graduation-cap" style="color: var(--accent); margin-right: 5px;"></i> Education</td>
+                            <td style="padding: 12px;">Verständlich erklären, was andere nur patchen</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-globe"></i> Community & Wirkung</h2>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Discord-Server für Devs, Nerds & Tester</li>
+                    <li>GitHub & andere Plattformen folgen dem Open-Knowledge-Ansatz</li>
+                    <li>Technische Challenges für Fortgeschrittene</li>
+                    <li>Kollabs mit anderen Tech-Creators möglich</li>
+                </ul>
+                
+                <h3 style="margin: 20px 0 10px; color: var(--accent); font-size: 20px;"><i class="fas fa-eye" style="margin-right: 10px;"></i> Vision</h3>
+                <p>Ein Raum für echte Minecraft-Innovation, ohne Clickbait, ohne Script-Kram. NoRisk & HG Labor stehen für:</p>
+                
+                <div class="grid" style="margin-top: 20px;">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                        <h3 class="card-title">Tiefgang</h3>
+                        <p>Tiefgang statt Oberfläche</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-wrench"></i></div>
+                        <h3 class="card-title">Pragmatismus</h3>
+                        <p>Tools statt Talk</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="card-title">Verständnis</h3>
+                        <p>Verständnis statt nur Verwendung</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('visible');
+            document.querySelector('.main-content').classList.toggle('expanded');
+        });
+        
+        // Smooth page transitions
+        document.querySelectorAll('.menu-item a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.menu-item a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Change page title
+                const pageTitle = document.querySelector('.page-title');
+                const breadcrumb = document.querySelector('.breadcrumb span');
+                
+                // Animate out
+                document.querySelector('.page-content').style.animation = 'fadeOut 0.4s ease forwards';
+                
+                setTimeout(() => {
+                    // Update content (in a real app, you'd load new content here)
+                    pageTitle.textContent = this.textContent;
+                    breadcrumb.textContent = this.textContent;
+                    
+                    // Animate in
+                    document.querySelector('.page-content').style.animation = 'fadeInUp 0.6s ease forwards';
+                }, 400);
+            });
+        });
+        
+        // Add fadeOut animation to styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
